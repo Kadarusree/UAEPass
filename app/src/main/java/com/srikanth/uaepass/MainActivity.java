@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.srikanth.uaepass.apis.ApiService;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     String APP_REDIRECT_URL_PROD = "";
 
     String URL_SCHEME = "srikanth";
-    String URL_SCHEME_PROD = "thiqa";
+    String URL_SCHEME_PROD = "";
 
     String HOST_SUCCESS = "uaepasssuccess";
     String HOST_FAILURE = "uaepassfailure";
@@ -77,16 +78,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        Intent intent = getIntent();
-        if (intent != null && intent.getData() != null) {
-            Uri data = intent.getData();
-            if (data != null) {
-                String code = data.getQueryParameter("code");
-                if (code != null) {
-                    System.out.println("6010944 - Auth Code: " + code);
-                }
-            }
-        }
+
 
 
         setContentView(R.layout.activity_main);
@@ -113,7 +105,9 @@ public class MainActivity extends AppCompatActivity {
             mWebView.clearCache(true);
             isWebLogin = true;
             mWebView.loadUrl(getURL(isWebLogin));
+         //   launchOnActivty();
         });
+
 
 
         // WebViewClient to handle URL loading and redirection
@@ -154,7 +148,14 @@ public class MainActivity extends AppCompatActivity {
                             "failureurl",
                             urlScheme + "://" + HOST_FAILURE
                     );
-                    view.loadUrl(url);
+
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     return true;
                 }
                 return false;
@@ -186,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
         if (data != null) {
             String code = data.getQueryParameter("code");
             // Handle the code
+            mWebView.loadUrl(successUrl);
         }
     }
 
@@ -321,5 +323,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    // Optional: Method to open the UAE Pass app if installed
+    public void launchOnActivty(){
+        UaePassDialogFragment fragment = UaePassDialogFragment.newInstance(true /* or true if QA */, new UaePassDialogFragment.UaePassCallback() {
+            @Override
+            public void onResult(String codeOrCancel) {
+                if ("Cancel".equals(codeOrCancel)) {
+                    // Handle user cancellation
+                } else {
+                    // Handle success, codeOrCancel is the auth code
+                }
+            }
+        });
+
+        fragment.show(getSupportFragmentManager(), "UaePassDialog");
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001 && resultCode == RESULT_OK) {
+            String result = data.getStringExtra(GpActivity.RESULT_KEY);
+            // Handle success or "Cancel"
+        }
+    }
+
 }
 

@@ -24,8 +24,10 @@
 
 
         </activity>
+        <activity android:name=".GpActivity"></activity>
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleTask"
             android:exported="true">
 
             <intent-filter android:label="Deep Link 1">
@@ -40,10 +42,9 @@
                 <data android:scheme="srikanth" android:host="redirect" />
                 <data android:scheme="srikanth" android:host="uaepasssuccess" />
                 <data android:scheme="srikanth" android:host="uaepassfailure" />
-                <data android:scheme="thiqa" android:host="uaepass-mobileauth" />
-                <data android:scheme="thiqa" android:host="uaepasssuccess" />
-                <data android:scheme="thiqa" android:host="uaepassfailure" />
             </intent-filter>
+
+
         </activity>
     </application>
 
