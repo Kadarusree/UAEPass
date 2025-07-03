@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     String APP_REDIRECT_URL_PROD = "adcb://redirect";
 
     String URL_SCHEME = "srikanth";
-    String URL_SCHEME_PROD = "";
+    String URL_SCHEME_PROD = "adcb";
 
     String HOST_SUCCESS = "uaepasssuccess";
     String HOST_FAILURE = "uaepassfailure";
@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
         String[] params = additionalURL.split("&");
         boolean first = true;
-
+//Sample Commit
         for (String p : params) {
             if (!p.isEmpty() && !p.split("=")[0].equals(param)) {
                 if (!first) {
