@@ -38,7 +38,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "example://gizmos” -->
+                <!-- Accepts URIs that begin with "srikanth://redirect” -->
                 <data android:scheme="srikanth" android:host="redirect" />
                 <data android:scheme="srikanth" android:host="uaepasssuccess" />
                 <data android:scheme="srikanth" android:host="uaepassfailure" />

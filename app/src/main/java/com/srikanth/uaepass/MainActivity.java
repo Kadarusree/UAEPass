@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     String APP_REDIRECT_URL_PROD = "adcb://redirect";
 
     String URL_SCHEME = "srikanth";
-    String URL_SCHEME_PROD = "adcb";
+    String URL_SCHEME_PROD = "";
 
     String HOST_SUCCESS = "uaepasssuccess";
     String HOST_FAILURE = "uaepassfailure";
@@ -57,33 +57,20 @@ public class MainActivity extends AppCompatActivity {
     String successUrl = "";
     String failureUrl = "";
 
-
     String UAE_PASS_CLIENT_ID_STG = "sandbox_stage";
     String UAE_PASS_CLIENT_ID = "";
 
     String UAE_PASS_CLIENT_SECRET_STG = "HnlHOJTkTb66Y5H";
     String UAE_PASS_CLIENT_SECRET = "";
 
-
     String SCOPE = "urn:uae:digitalid:profile:general";
     String RESPONSE_TYPE = "code";
-
-    String UAE_PASS_PACKAGE_ID = "ae.uaepass.mainapp";
-    String UAE_PASS_QA_PACKAGE_ID = "ae.uaepass.mainapp.stg";
-
 
     @SuppressLint("SetJavaScriptEnabled")
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-
-
-
-
-
         setContentView(R.layout.activity_main);
-
-
         statusTextView = findViewById(R.id.authStatus);
         UserInfoTextView = findViewById(R.id.userInfo);
         appLoign = findViewById(R.id.btnLogin);
@@ -123,13 +110,11 @@ public class MainActivity extends AppCompatActivity {
                         statusTextView.setText("Redirected to App with Code : " + uri.getQueryParameter("code"));
                         view.loadUrl("https://kadarisrikanth.com/");
                         getToken(uri.getQueryParameter("code"));
-                        return true;
                     } else if (uri.getQueryParameter("error") != null) {
                         view.loadUrl("https://kadarisrikanth.com/");
                         statusTextView.setText("Error : " + uri.getQueryParameter("error"));
-                        return true;
                     }
-                    return true;
+                    return false;
                 }
 
                 if (url.startsWith("uaepass") && successUrl == "" && !isWebLogin) {
@@ -184,18 +169,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onNewIntent(@NonNull Intent intent) {
         super.onNewIntent(intent);
         Uri data = intent.getData();
-        if (data != null) {
-            String code = data.getQueryParameter("code");
-            // Handle the code
+        System.out.println("6010944 - onNewIntent : " + data.toString());
+        if (data.toString().contains(HOST_SUCCESS)) {
             mWebView.loadUrl(successUrl);
         }
+        else if (data.toString().contains(HOST_FAILURE)) {
+            mWebView.loadUrl(failureUrl);
+        }
+
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
     }
-
 
     /**
      * Extracts query parameters from a given URL and returns them as a Map.
