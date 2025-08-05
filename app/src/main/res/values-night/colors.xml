@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Dark mode background colors -->
-    <color name="background_light">#121212</color>
-    <color name="background_white">#1E1E1E</color>
-    <color name="card_background">#2D2D2D</color>
+    <!-- Dark mode background colors - Enhanced -->
+    <color name="background_light">#1A202C</color>
+    <color name="background_gradient_start">#2D3748</color>
+    <color name="background_gradient_end">#1A202C</color>
+    <color name="background_white">#2D3748</color>
+    <color name="card_background">#2D3748</color>
+    <color name="card_background_secondary">#4A5568</color>
     
-    <!-- Dark mode text colors -->
-    <color name="text_primary">#FFFFFF</color>
-    <color name="text_secondary">#B3B3B3</color>
+    <!-- Dark mode text colors - Improved -->
+    <color name="text_primary">#F7FAFC</color>
+    <color name="text_secondary">#A0AEC0</color>
+    <color name="text_tertiary">#718096</color>
+    <color name="text_accent">#63B3ED</color>
     
     <!-- Dark mode border and divider colors -->
-    <color name="border_light">#404040</color>
-    <color name="divider">#404040</color>
+    <color name="border_light">#4A5568</color>
+    <color name="border_medium">#2D3748</color>
+    <color name="divider">#4A5568</color>
+    <color name="divider_accent">#63B3ED</color>
+    
+    <!-- Dark mode status colors -->
+    <color name="success_green_light">#2D5A3D</color>
+    <color name="error_red_light">#5D2A2A</color>
+    <color name="warning_orange_light">#5D4A2A</color>
+    <color name="info_blue_light">#2A4A5D</color>
+    
+    <!-- Dark mode interactive elements -->
+    <color name="ripple_light">#4A5568</color>
+    <color name="ripple_primary">#5D2A2A</color>
+    <color name="ripple_secondary">#2D5A3D</color>
 </resources>
