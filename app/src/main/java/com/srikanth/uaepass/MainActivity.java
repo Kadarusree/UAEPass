@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     String ACRN_WEB = "urn:safelayer:tws:policies:authentication:level:low";
 
     String APP_REDIRECT_URL = "srikanth://redirect";
-    String APP_REDIRECT_URL_PROD = "adcb://redirect";
+    String APP_REDIRECT_URL_PROD = "";
 
     String URL_SCHEME = "srikanth";
     String URL_SCHEME_PROD = "";
