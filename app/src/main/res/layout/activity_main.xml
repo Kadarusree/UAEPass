@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light"
+    android:background="@drawable/background_gradient"
     android:fillViewport="true"
     tools:context=".MainActivity">
 
@@ -24,19 +24,20 @@
             android:padding="@dimen/padding_large"
             android:layout_marginBottom="@dimen/margin_large">
 
-            <!-- UAE Pass Logo Placeholder -->
+            <!-- UAE Pass Logo Placeholder with accent border -->
             <View
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:background="@drawable/card_background"
                 android:layout_marginBottom="@dimen/margin_medium" />
 
-            <!-- Welcome Title -->
+            <!-- Welcome Title with accent color -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/welcome_title"
                 style="@style/TitleText"
+                android:textColor="@color/text_primary"
                 android:layout_marginBottom="@dimen/margin_small" />
 
             <!-- Welcome Subtitle -->
@@ -45,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/welcome_subtitle"
                 style="@style/SubtitleText"
+                android:textColor="@color/text_secondary"
                 android:layout_marginBottom="@dimen/margin_medium" />
 
         </LinearLayout>
@@ -56,12 +58,13 @@
             android:layout_marginBottom="@dimen/margin_large"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:cardElevation="@dimen/card_elevation"
-            app:cardBackgroundColor="@color/card_background">
+            app:cardBackgroundColor="@android:color/transparent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:background="@drawable/card_background"
                 android:padding="@dimen/padding_large">
 
                 <TextView
@@ -109,19 +112,20 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- Status Card -->
+        <!-- Status Card with accent styling -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_large"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:cardElevation="@dimen/card_elevation"
-            app:cardBackgroundColor="@color/card_background">
+            app:cardBackgroundColor="@android:color/transparent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:background="@drawable/card_status_background"
                 android:padding="@dimen/padding_large">
 
                 <TextView
@@ -136,7 +140,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_height"
-                    android:background="@color/divider"
+                    android:background="@color/divider_accent"
                     android:layout_marginBottom="@dimen/margin_small" />
 
                 <TextView
@@ -145,9 +149,10 @@
                     android:layout_height="wrap_content"
                     android:text="@string/status_ready"
                     style="@style/StatusText"
+                    android:textColor="@color/text_accent"
                     android:minHeight="48dp"
                     android:gravity="center_vertical"
-                    android:background="@color/background_light"
+                    android:background="@color/background_white"
                     android:padding="@dimen/padding_medium" />
 
             </LinearLayout>
@@ -161,12 +166,13 @@
             android:layout_marginBottom="@dimen/margin_large"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:cardElevation="@dimen/card_elevation"
-            app:cardBackgroundColor="@color/card_background">
+            app:cardBackgroundColor="@android:color/transparent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/card_background">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -176,7 +182,7 @@
                     android:textColor="@color/text_primary"
                     android:textStyle="bold"
                     android:padding="@dimen/padding_medium"
-                    android:background="@color/background_light" />
+                    android:background="@color/accent_blue_light" />
 
                 <WebView
                     android:id="@+id/mWebView"
@@ -194,12 +200,13 @@
             android:layout_marginBottom="@dimen/margin_large"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:cardElevation="@dimen/card_elevation"
-            app:cardBackgroundColor="@color/card_background">
+            app:cardBackgroundColor="@android:color/transparent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:background="@drawable/card_background"
                 android:padding="@dimen/padding_large">
 
                 <TextView
@@ -220,7 +227,7 @@
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:background="@color/background_light">
+                    android:background="@color/background_white">
 
                     <TextView
                         android:id="@+id/userInfo"
@@ -228,6 +235,7 @@
                         android:layout_height="wrap_content"
                         android:text="No user information available"
                         style="@style/InfoText"
+                        android:textColor="@color/text_secondary"
                         android:padding="@dimen/padding_medium"
                         android:gravity="top"
                         android:textIsSelectable="true" />
@@ -238,7 +246,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- Footer -->
+        <!-- Footer with accent color -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -251,7 +259,8 @@
                 android:layout_height="wrap_content"
                 android:text="Powered by UAE Pass"
                 android:textSize="@dimen/text_size_small"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/text_accent"
+                android:textStyle="bold"
                 android:gravity="center" />
 
         </LinearLayout>
