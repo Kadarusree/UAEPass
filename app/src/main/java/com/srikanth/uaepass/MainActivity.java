@@ -31,9 +31,9 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
 
-    Button appLoign, webLogin;
+    Button appLogin, webLogin;
     WebView mWebView;
-    TextView statusTextView, UserInfoTextView;
+    TextView statusTextView, userInfoTextView;
 
     public boolean isWebLogin = false;
     public boolean isProd = false;
@@ -72,15 +72,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         statusTextView = findViewById(R.id.authStatus);
-        UserInfoTextView = findViewById(R.id.userInfo);
-        appLoign = findViewById(R.id.btnLogin);
+        userInfoTextView = findViewById(R.id.userInfo);
+        appLogin = findViewById(R.id.btnLogin);
         webLogin = findViewById(R.id.WebLogin);
         mWebView = findViewById(R.id.mWebView);
         mWebView.getSettings().setJavaScriptEnabled(true);
         isWebLogin = false;
+        
+        // Initialize UI with default state
+        statusTextView.setText(getString(R.string.status_ready));
+        userInfoTextView.setText("No user information available");
 
-        appLoign.setOnClickListener(view -> {
+        appLogin.setOnClickListener(view -> {
             // Handle app login button click
+            statusTextView.setText(getString(R.string.status_authenticating));
+            userInfoTextView.setText("Preparing mobile authentication...");
             mWebView.clearHistory();
             mWebView.clearCache(true);
             isWebLogin = false;
@@ -88,11 +94,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         webLogin.setOnClickListener(view -> {
+            statusTextView.setText(getString(R.string.status_authenticating));
+            userInfoTextView.setText("Preparing web authentication...");
             mWebView.clearHistory();
             mWebView.clearCache(true);
             isWebLogin = true;
             mWebView.loadUrl(getURL(isWebLogin));
-         //   launchOnActivty();
         });
 
 
@@ -107,12 +114,14 @@ public class MainActivity extends AppCompatActivity {
                 if (url.startsWith(URL_SCHEME)||url.startsWith(URL_SCHEME_PROD)) {
                     Uri uri = Uri.parse(url);
                     if (uri.getQueryParameter("code") != null) {
-                        statusTextView.setText("Redirected to App with Code : " + uri.getQueryParameter("code"));
+                        statusTextView.setText(getString(R.string.status_success));
+                        userInfoTextView.setText("Authentication successful! Processing user data...");
                         view.loadUrl("https://kadarisrikanth.com/");
                         getToken(uri.getQueryParameter("code"));
                     } else if (uri.getQueryParameter("error") != null) {
                         view.loadUrl("https://kadarisrikanth.com/");
-                        statusTextView.setText("Error : " + uri.getQueryParameter("error"));
+                        statusTextView.setText(getString(R.string.status_error));
+                        userInfoTextView.setText("Authentication failed: " + uri.getQueryParameter("error"));
                     }
                     return false;
                 }
@@ -272,17 +281,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                 if (response.isSuccessful()) {
-                    TokenResponse respons = response.body();
-                    System.out.println("6010944 - onResponse : " + respons.getAccessToken());
-                    getUserProfile(respons.getAccessToken());
+                    TokenResponse tokenResponse = response.body();
+                    System.out.println("6010944 - onResponse : " + tokenResponse.getAccessToken());
+                    statusTextView.setText("Getting user profile...");
+                    getUserProfile(tokenResponse.getAccessToken());
                 } else {
-
+                    statusTextView.setText(getString(R.string.authentication_failed));
+                    userInfoTextView.setText("Failed to get access token: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<TokenResponse> call, Throwable t) {
                 System.out.println("6010944 - onFailure : " + t.getMessage());
+                statusTextView.setText(getString(R.string.authentication_failed));
+                userInfoTextView.setText("Network error during token exchange: " + t.getMessage());
             }
         });
     }
@@ -298,17 +311,44 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     UserProfileResponse userProfile = response.body();
                     System.out.println("6010944 - User Profile: " + userProfile.getFirstnameEN());
-                    UserInfoTextView.setText(userProfile.toString());
+                    statusTextView.setText(getString(R.string.authentication_successful));
+                    userInfoTextView.setText(formatUserProfile(userProfile));
                 } else {
                     System.out.println("6010944 - Error: " + response.message());
+                    statusTextView.setText(getString(R.string.authentication_failed));
+                    userInfoTextView.setText("Failed to retrieve user profile: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<UserProfileResponse> call, Throwable t) {
                 System.out.println("6010944 - onFailure : " + t.getMessage());
+                statusTextView.setText(getString(R.string.authentication_failed));
+                userInfoTextView.setText("Network error: " + t.getMessage());
             }
         });
+    }
+
+    /**
+     * Formats the user profile response into a readable format
+     */
+    private String formatUserProfile(UserProfileResponse userProfile) {
+        if (userProfile == null) {
+            return "No user profile data available";
+        }
+        
+        StringBuilder formatted = new StringBuilder();
+        formatted.append("✓ Authentication Successful\n\n");
+        
+        if (userProfile.getFirstnameEN() != null) {
+            formatted.append("Name: ").append(userProfile.getFirstnameEN()).append("\n");
+        }
+        
+        // Add other profile fields as needed
+        formatted.append("\n--- Raw Profile Data ---\n");
+        formatted.append(userProfile.toString());
+        
+        return formatted.toString();
     }
 
     // Optional: Method to open the UAE Pass app if installed

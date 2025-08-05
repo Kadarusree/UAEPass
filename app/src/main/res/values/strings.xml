@@ -1,4 +1,30 @@
 <resources>
-    <string name="app_name">UAEPass</string>
-    <string name="login_with_uaepass">Login with UAEPass</string>
+    <string name="app_name">UAE Pass</string>
+    <string name="login_with_uaepass">Login with UAE Pass</string>
+    
+    <!-- Main Activity Strings -->
+    <string name="welcome_title">Welcome to UAE Pass</string>
+    <string name="welcome_subtitle">Secure digital identity for UAE residents and citizens</string>
+    <string name="app_login_button">Mobile App Login</string>
+    <string name="web_login_button">Web Browser Login</string>
+    <string name="authentication_status">Authentication Status</string>
+    <string name="user_information">User Information</string>
+    <string name="loading">Loading...</string>
+    <string name="authentication_successful">Authentication successful</string>
+    <string name="authentication_failed">Authentication failed</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="retry">Retry</string>
+    <string name="cancel">Cancel</string>
+    
+    <!-- Status Messages -->
+    <string name="status_ready">Ready to authenticate</string>
+    <string name="status_authenticating">Authenticating...</string>
+    <string name="status_success">Successfully authenticated</string>
+    <string name="status_error">Authentication error occurred</string>
+    <string name="status_cancelled">Authentication cancelled</string>
+    
+    <!-- Error Messages -->
+    <string name="error_network">Network error. Please check your connection.</string>
+    <string name="error_authentication">Authentication failed. Please try again.</string>
+    <string name="error_general">An error occurred. Please try again.</string>
 </resources>
